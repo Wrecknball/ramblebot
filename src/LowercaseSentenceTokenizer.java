@@ -35,18 +35,17 @@ public class LowercaseSentenceTokenizer implements Tokenizer {
 
     while (scanner.hasNext()) {
       String word = scanner.next().toLowerCase();
+      int end = word.length();
 
-      if (word.endsWith(".")) {
-        String removePeriod = word.substring(0, word.length() - 1);
-        tokens.add(removePeriod);
-        tokens.add(".");
+      char ending = word.charAt(word.length() - 1);
+      if (".!?,".indexOf(ending) != -1) {
+        String noPunct = word.substring(0, word.length() - 1);
+        tokens.add(noPunct);
+        tokens.add(String.valueOf(ending));
       } else {
         tokens.add(word);
       }
-
-      
     }
-
     return tokens;
   }
 }
